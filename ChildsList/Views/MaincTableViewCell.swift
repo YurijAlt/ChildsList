@@ -11,14 +11,7 @@ class MaincTableViewCell: UITableViewCell {
     
     static let identifier = "MainTableViewCell"
     
-
     var child: Child!
-    
-    
-    private lazy var firstView: UIView = {
-        let view = UIView()
-        return view
-    }()
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
@@ -46,6 +39,21 @@ class MaincTableViewCell: UITableViewCell {
     }()
     
     
+    private lazy var firstView: UIView = {
+        let view = UIView()
+        view.layer.borderWidth = 3
+        view.layer.borderColor = #colorLiteral(red: 0.9686275125, green: 0.9686275125, blue: 0.9686275125, alpha: 1)
+        return view
+    }()
+    
+    private lazy var secondView: UIView = {
+        let view = UIView()
+        view.layer.borderWidth = 3
+        view.layer.borderColor = #colorLiteral(red: 0.9686275125, green: 0.9686275125, blue: 0.9686275125, alpha: 1)
+        return view
+    }()
+    
+    
     private lazy var deleteButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Удалить", for: .normal)
@@ -59,7 +67,13 @@ class MaincTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup(subviews: nameLabel, enteredNameLabel, ageLabel, enteredAgeLabel, deleteButton, firstView)
+        setup(subviews: deleteButton, firstView, secondView)
+        
+        firstView.addSubview(nameLabel)
+        firstView.addSubview(enteredNameLabel)
+        secondView.addSubview(ageLabel)
+        secondView.addSubview(enteredAgeLabel)
+        
         setupConstraints()
     }
     
@@ -87,40 +101,53 @@ class MaincTableViewCell: UITableViewCell {
     }
     
     private func setupConstraints() {
-        //NAME LABEL
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            nameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16)
-        ])
-        //ENTERED NAME LABEL
-        enteredNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            enteredNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
-            enteredNameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16)
-        ])
-        
         
         //UIVIEW
         
         firstView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            firstView.topAnchor.constraint(equalTo: enteredNameLabel.bottomAnchor, constant: 20),
-            firstView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
-            firstView.rightAnchor.constraint(equalTo: deleteButton.rightAnchor, constant: 30)
+            firstView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            firstView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            firstView.rightAnchor.constraint(equalTo: deleteButton.leftAnchor, constant: -20),
+            firstView.heightAnchor.constraint(equalToConstant: 70)
         ])
+        //NAME LABEL
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            nameLabel.topAnchor.constraint(equalTo: firstView.topAnchor, constant: 10),
+            nameLabel.leftAnchor.constraint(equalTo: firstView.leftAnchor, constant: 16)
+        ])
+        //ENTERED NAME LABEL
+        enteredNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            enteredNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
+            enteredNameLabel.leftAnchor.constraint(equalTo: firstView.leftAnchor, constant: 16),
+            //enteredAgeLabel.bottomAnchor.constraint(equalTo: firstView.bottomAnchor, constant: -10)
+        ])
+        
+        
+        
+        secondView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            secondView.topAnchor.constraint(equalTo: firstView.bottomAnchor, constant: 10),
+            secondView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            secondView.rightAnchor.constraint(equalTo: deleteButton.leftAnchor, constant: -20),
+            secondView.heightAnchor.constraint(equalToConstant: 70)
+        ])
+        
         
         //AGE LABEL
         ageLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            ageLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
-            ageLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 40)
+            ageLabel.topAnchor.constraint(equalTo: secondView.topAnchor, constant: 10),
+            ageLabel.leftAnchor.constraint(equalTo: secondView.leftAnchor, constant: 16)
         ])
         //ENTERED AGE LABEL
         enteredAgeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             enteredAgeLabel.topAnchor.constraint(equalTo: ageLabel.bottomAnchor, constant: 10),
-            enteredAgeLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16)
+            enteredAgeLabel.leftAnchor.constraint(equalTo: secondView.leftAnchor, constant: 16),
+            enteredAgeLabel.bottomAnchor.constraint(equalTo: secondView.bottomAnchor, constant: -10)
         ])
         
         
@@ -129,10 +156,16 @@ class MaincTableViewCell: UITableViewCell {
         //DELETE BUTTON
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            deleteButton.centerYAnchor.constraint(equalTo: firstView.centerYAnchor),
             deleteButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -100)
         ])
+        
+        
+        
+        
+        
     }
+    
     
     
     

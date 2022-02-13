@@ -56,7 +56,7 @@ class MainViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(MaincTableViewCell.self, forCellReuseIdentifier: MaincTableViewCell.identifier)
-        tableView.rowHeight = 150
+        tableView.rowHeight = 170
         tableView.separatorStyle = .singleLine
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.separatorColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
@@ -119,19 +119,19 @@ class MainViewController: UIViewController {
         personDataLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             personDataLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
-            personDataLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
+            personDataLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
         ])
         //NAME LABEL
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: personDataLabel.bottomAnchor, constant: 30),
-            nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30)
+            nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16)
         ])
         //NAME TEXT FIELD
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             nameTextField.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
-            nameTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
+            nameTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             nameTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
             nameTextField.heightAnchor.constraint(equalToConstant: 20)
         ])
@@ -139,7 +139,7 @@ class MainViewController: UIViewController {
         ageLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             ageLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 40),
-            ageLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30)
+            ageLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16)
         ])
         //AGE TEXT FIELD
         ageTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -153,7 +153,7 @@ class MainViewController: UIViewController {
         childsMaximumLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             childsMaximumLabel.topAnchor.constraint(equalTo: ageTextField.bottomAnchor, constant: 40),
-            childsMaximumLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
+            childsMaximumLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
         ])
         //ADD BUTTON
         addButton.translatesAutoresizingMaskIntoConstraints = false
