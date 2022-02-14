@@ -41,14 +41,14 @@ class MaincTableViewCell: UITableViewCell {
     
     private lazy var firstView: UIView = {
         let view = UIView()
-        view.layer.borderWidth = 3
+        view.layer.borderWidth = 2
         view.layer.borderColor = #colorLiteral(red: 0.9686275125, green: 0.9686275125, blue: 0.9686275125, alpha: 1)
         return view
     }()
     
     private lazy var secondView: UIView = {
         let view = UIView()
-        view.layer.borderWidth = 3
+        view.layer.borderWidth = 2
         view.layer.borderColor = #colorLiteral(red: 0.9686275125, green: 0.9686275125, blue: 0.9686275125, alpha: 1)
         return view
     }()

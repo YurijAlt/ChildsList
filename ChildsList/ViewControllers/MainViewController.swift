@@ -53,6 +53,21 @@ class MainViewController: UIViewController {
         return label
     }()
     
+    private lazy var firstView: UIView = {
+        let view = UIView()
+        view.layer.borderWidth = 2
+        view.layer.borderColor = #colorLiteral(red: 0.9686275125, green: 0.9686275125, blue: 0.9686275125, alpha: 1)
+        return view
+    }()
+    private lazy var secondView: UIView = {
+        let view = UIView()
+        view.layer.borderWidth = 2
+        view.layer.borderColor = #colorLiteral(red: 0.9686275125, green: 0.9686275125, blue: 0.9686275125, alpha: 1)
+        return view
+    }()
+    
+    
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(MaincTableViewCell.self, forCellReuseIdentifier: MaincTableViewCell.identifier)
@@ -101,10 +116,22 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        setup(subviews: nameLabel, nameTextField, ageLabel, ageTextField, personDataLabel, childsMaximumLabel, tableView, addButton, clearButton)
+        setup(subviews: personDataLabel, firstView, secondView, childsMaximumLabel, tableView, addButton, clearButton)
+        firstView.addSubview(nameLabel)
+        firstView.addSubview(nameTextField)
+        
+        secondView.addSubview(ageLabel)
+        secondView.addSubview(ageTextField)
+        
+        
         setupConstraints()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        
+
+        
+        
     }
 
     //MARK: Private Methods
@@ -115,50 +142,79 @@ class MainViewController: UIViewController {
     }
     
     private func setupConstraints() {
+        
+
+        
+        
+        
         //PERSONAL DATA LABEL
         personDataLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             personDataLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
             personDataLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
         ])
+        
+        //FIRST UIVIEW
+        firstView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+
+            firstView.topAnchor.constraint(equalTo: personDataLabel.bottomAnchor, constant: 10),
+            firstView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            firstView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            firstView.heightAnchor.constraint(equalToConstant: 70)
+        ])
+        
+        
         //NAME LABEL
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: personDataLabel.bottomAnchor, constant: 30),
-            nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16)
+            nameLabel.topAnchor.constraint(equalTo: firstView.topAnchor, constant: 10),
+            nameLabel.leftAnchor.constraint(equalTo: firstView.leftAnchor, constant: 16)
         ])
         //NAME TEXT FIELD
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             nameTextField.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
-            nameTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            nameTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
-            nameTextField.heightAnchor.constraint(equalToConstant: 20)
+            nameTextField.leftAnchor.constraint(equalTo: firstView.leftAnchor, constant: 16),
+            nameTextField.rightAnchor.constraint(equalTo: firstView.rightAnchor, constant: -30),
         ])
+        
+        //SECOND UIVIEW
+        secondView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+        
+            secondView.topAnchor.constraint(equalTo: firstView.bottomAnchor, constant: 20),
+            secondView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            secondView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            secondView.heightAnchor.constraint(equalToConstant: 70)
+        
+        ])
+        
         //AGE LABEL
         ageLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            ageLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 40),
-            ageLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16)
+            ageLabel.topAnchor.constraint(equalTo: secondView.topAnchor, constant: 10),
+            ageLabel.leftAnchor.constraint(equalTo: secondView.leftAnchor, constant: 16)
         ])
+        
         //AGE TEXT FIELD
         ageTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             ageTextField.topAnchor.constraint(equalTo: ageLabel.bottomAnchor, constant: 10),
-            ageTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
-            ageTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
+            ageTextField.leftAnchor.constraint(equalTo: secondView.leftAnchor, constant: 16),
+            ageTextField.rightAnchor.constraint(equalTo: secondView.rightAnchor, constant: -30),
             ageTextField.heightAnchor.constraint(equalToConstant: 20)
         ])
         //CHILDS MAXIMUM LABEL
         childsMaximumLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            childsMaximumLabel.topAnchor.constraint(equalTo: ageTextField.bottomAnchor, constant: 40),
+            childsMaximumLabel.topAnchor.constraint(equalTo: secondView.bottomAnchor, constant: 40),
             childsMaximumLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
         ])
         //ADD BUTTON
         addButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            addButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+            addButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             //addButton.leftAnchor.constraint(equalTo: childsMaximumLabel.rightAnchor, constant: 25),
             addButton.centerYAnchor.constraint(equalTo: childsMaximumLabel.centerYAnchor),
             addButton.heightAnchor.constraint(equalToConstant: 54)
