@@ -13,8 +13,8 @@ struct Child {
     static func getChilds() -> [Child] {
         let childs = [
             Child(name: "Юра", age: 3),
-            Child(name: "Оля", age: 1)
-//            Child(name: "Саша", age: 2)
+            Child(name: "Оля", age: 1),
+            Child(name: "Саша", age: 2)
         ]
         return childs
     }

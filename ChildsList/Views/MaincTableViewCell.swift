@@ -13,16 +13,16 @@ class MaincTableViewCell: UITableViewCell {
     
     var child: Child!
     
+    //MARK: Private Properties
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Имя"
         label.textColor = .lightGray
         return label
     }()
-    private lazy var enteredNameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Имя из модели"
-        return label
+    private lazy var nameTextField: UITextField = {
+        let textField = UITextField()
+        return textField
     }()
     
     private lazy var ageLabel: UILabel = {
@@ -32,12 +32,10 @@ class MaincTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var enteredAgeLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Возраст из модели"
-        return label
+    private lazy var ageTextField: UITextField = {
+        let textField = UITextField()
+        return textField
     }()
-    
     
     private lazy var firstView: UIView = {
         let view = UIView()
@@ -53,7 +51,6 @@ class MaincTableViewCell: UITableViewCell {
         return view
     }()
     
-    
     private lazy var deleteButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Удалить", for: .normal)
@@ -63,17 +60,11 @@ class MaincTableViewCell: UITableViewCell {
         return button
     }()
     
-    
-    
+    //MARK: - Override Methods
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup(subviews: deleteButton, firstView, secondView)
-        
-        firstView.addSubview(nameLabel)
-        firstView.addSubview(enteredNameLabel)
-        secondView.addSubview(ageLabel)
-        secondView.addSubview(enteredAgeLabel)
-        
+        selectionStyle = .none
+        setupSubViews()
         setupConstraints()
     }
     
@@ -82,28 +73,25 @@ class MaincTableViewCell: UITableViewCell {
     }
 
     func setupIUFromModel(child: Child) {
-        enteredNameLabel.text = child.name
-        enteredAgeLabel.text = String(child.age)
+        nameTextField.text = child.name
+        ageTextField.text = String(child.age)
     }
     
-    
-    private func setup(subviews: UIView...) {
-        subviews.forEach { subview in
-            contentView.addSubview(subview)
-        }
+    private func setupSubViews() {
+        contentView.addSubview(deleteButton)
+        contentView.addSubview(firstView)
+        contentView.addSubview(secondView)
+        firstView.addSubview(nameLabel)
+        firstView.addSubview(nameTextField)
+        secondView.addSubview(ageLabel)
+        secondView.addSubview(ageTextField)
     }
-    
     
     @objc private func deleteChildFromList() {
-        
-        
-        
     }
     
     private func setupConstraints() {
-        
-        //UIVIEW
-        
+        //MARK: First UIView
         firstView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             firstView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
@@ -111,22 +99,19 @@ class MaincTableViewCell: UITableViewCell {
             firstView.rightAnchor.constraint(equalTo: deleteButton.leftAnchor, constant: -20),
             firstView.heightAnchor.constraint(equalToConstant: 70)
         ])
-        //NAME LABEL
+        //MARK: Name Label
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: firstView.topAnchor, constant: 10),
             nameLabel.leftAnchor.constraint(equalTo: firstView.leftAnchor, constant: 16)
         ])
-        //ENTERED NAME LABEL
-        enteredNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        //MARK: Name TextField
+        nameTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            enteredNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
-            enteredNameLabel.leftAnchor.constraint(equalTo: firstView.leftAnchor, constant: 16),
-            //enteredAgeLabel.bottomAnchor.constraint(equalTo: firstView.bottomAnchor, constant: -10)
+            nameTextField.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
+            nameTextField.leftAnchor.constraint(equalTo: firstView.leftAnchor, constant: 16),
         ])
-        
-        
-        
+        //MARK: Second UIView
         secondView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             secondView.topAnchor.constraint(equalTo: firstView.bottomAnchor, constant: 10),
@@ -134,40 +119,25 @@ class MaincTableViewCell: UITableViewCell {
             secondView.rightAnchor.constraint(equalTo: deleteButton.leftAnchor, constant: -20),
             secondView.heightAnchor.constraint(equalToConstant: 70)
         ])
-        
-        
-        //AGE LABEL
+        //MARK: Age Label
         ageLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             ageLabel.topAnchor.constraint(equalTo: secondView.topAnchor, constant: 10),
             ageLabel.leftAnchor.constraint(equalTo: secondView.leftAnchor, constant: 16)
         ])
-        //ENTERED AGE LABEL
-        enteredAgeLabel.translatesAutoresizingMaskIntoConstraints = false
+        //MARK: Age TextField
+        ageTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            enteredAgeLabel.topAnchor.constraint(equalTo: ageLabel.bottomAnchor, constant: 10),
-            enteredAgeLabel.leftAnchor.constraint(equalTo: secondView.leftAnchor, constant: 16),
-            enteredAgeLabel.bottomAnchor.constraint(equalTo: secondView.bottomAnchor, constant: -10)
+            ageTextField.topAnchor.constraint(equalTo: ageLabel.bottomAnchor, constant: 10),
+            ageTextField.leftAnchor.constraint(equalTo: secondView.leftAnchor, constant: 16),
+            ageTextField.bottomAnchor.constraint(equalTo: secondView.bottomAnchor, constant: -10)
         ])
-        
-        
-        
-        
-        //DELETE BUTTON
+        //MARK: Delete Button
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             deleteButton.centerYAnchor.constraint(equalTo: firstView.centerYAnchor),
             deleteButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -100)
         ])
-        
-        
-        
-        
-        
     }
-    
-    
-    
-    
 }
 
